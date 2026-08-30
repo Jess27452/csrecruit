@@ -2,11 +2,11 @@ import { CategoryPage } from "@/components/category-page";
 import { categories, slugify } from "@/lib/resource-data";
 
 export function generateStaticParams() {
-  const category = categories.find((item) => item.slug === "recruiting");
+  const category = categories.find((item) => item.slug === "resume");
   return category?.subcategories.map((subcategory) => ({ subcategory: slugify(subcategory) })) ?? [];
 }
 
 export default async function Page({ params }: { params: Promise<{ subcategory: string }> }) {
   const { subcategory } = await params;
-  return <CategoryPage slug="recruiting" subcategory={subcategory} />;
+  return <CategoryPage slug="resume" subcategory={subcategory} />;
 }
