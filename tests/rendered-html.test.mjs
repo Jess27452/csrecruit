@@ -16,7 +16,7 @@ test("server-renders the finished home page", async () => {
   const response = await render("/");
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /CS Career Compass/);
+  assert.match(html, /CSRecruit/);
   assert.match(html, /Turn your CS goals into a/);
   assert.match(html, /Explore Career Paths/);
   assert.doesNotMatch(html, /codex-preview|loading skeleton/i);

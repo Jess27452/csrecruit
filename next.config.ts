@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const isGitHubPages = process.env.GITHUB_PAGES === "true";
-const repositoryBasePath = "/cs-career-compass";
+const repositoryBasePath = "/csrecruit";
 
 const nextConfig: NextConfig = {
   ...(isGitHubPages
