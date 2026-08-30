@@ -5,7 +5,7 @@ import { seedResources, type Resource } from "@/lib/resource-data";
 export async function getApprovedResources(options: { category?: string; limit?: number } = {}): Promise<Resource[]> {
   const supabase = await createClient();
   if (!supabase) return options.category ? seedResources.filter((item) => item.category === options.category) : seedResources;
-  let query = supabase.from("resources").select("id,title,description,url,category,subcategory,tags,submitted_by,status,created_at,profiles(username,avatar_url),upvotes(count)").eq("status", "approved").order("created_at", { ascending: false });
+  let query = supabase.from("resources").select("id,title,description,url,category,subcategory,tags,submitted_by,status,created_at,profiles!resources_submitted_by_fkey(username,avatar_url),upvotes(count)").eq("status", "approved").order("created_at", { ascending: false });
   if (options.category) query = query.eq("category", options.category);
   if (options.limit) query = query.limit(options.limit);
   const { data, error } = await query;
