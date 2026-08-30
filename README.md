@@ -4,11 +4,30 @@
 
 Community-curated resources for Computer Science recruiting. CSRecruit helps students discover and share useful resources for coding interviews, online assessments, projects, resumes, internships, and new-grad recruiting.
 
+**Live website:** [jess27452.github.io/csrecruit](https://jess27452.github.io/csrecruit/)
+
+## What CSRecruit does
+
+CSRecruit brings scattered recruiting resources into one simple, student-friendly directory. Visitors can switch the interface between English and Chinese, browse five focused categories, search and filter the collection, open recommended resources, and contribute useful links without being forced to create an account.
+
+The five main categories are:
+
+1. **Coding** — LeetCode practice, algorithm roadmaps, and system design
+2. **Recruiting** — online assessments, technical and behavioral interviews, and company experiences
+3. **Projects** — software engineering, machine learning, and product project resources
+4. **Resume** — US and China templates, guides, and example resumes
+5. **Opportunities** — internship lists, new-grad lists, job boards, and GitHub repositories
+
+## 项目简介
+
+CSRecruit 是一个面向计算机专业学生的社区求职资源网站。访问者可以在英文和中文界面之间切换，按五大分类浏览、搜索和筛选资源，也可以在无需注册账号的情况下提交资源和点赞。公开资源会先经过管理员审核，帮助社区保持内容实用、清晰并且安全。
+
 ## Features
 
 - Browse approved resources without signing in
 - Search by title, description, category, subcategory, and tags
 - Filter across Coding, Recruiting, Projects, Resume, and Opportunities
+- Switch the main interface between English and Chinese, with the preference saved on the visitor’s device
 - Sort resources by upvotes, newest, or popularity
 - Submit resources without creating an account
 - Upvote each resource once per browser without creating an account
@@ -46,8 +65,6 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 Apply the SQL migrations in `supabase/migrations`, then load `supabase/seed_csrecruit.sql` if you want the starter resources.
 
-For Google and GitHub login, enable each provider in Supabase Authentication and add the local and production callback URLs.
-
 ## Permission model
 
 - Visitor: browse, search, filter, open, submit, and upvote resources without an account
@@ -71,6 +88,8 @@ pnpm lint
 The application is ready for Vercel or another server-capable Next.js host. Configure the Supabase environment variables in the hosting platform and add its authentication callback URL in Supabase.
 
 The repository also contains a GitHub Pages workflow for the static public experience. Supabase-backed server features require a server-capable host for the complete application.
+
+Every push to `main` builds the static site and deploys it to GitHub Pages automatically.
 
 ## Security
 
