@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const migration = await readFile(new URL("../supabase/migrations/202607250001_initial_schema.sql", import.meta.url), "utf8");
+const anonymousMigration = await readFile(new URL("../supabase/migrations/202608300002_anonymous_contributions.sql", import.meta.url), "utf8");
 
 test("private applications are owner-only", () => {
   assert.match(migration, /own applications only[\s\S]*user_id=auth\.uid\(\)/);
@@ -17,4 +18,12 @@ test("duplicate votes and bookmarks use composite primary keys", () => {
 });
 test("hidden resources are excluded from public reads", () => {
   assert.match(migration, /visible resources[\s\S]*visibility_status='visible' and deleted_at is null/);
+});
+test("visitors can submit only pending hidden resources", () => {
+  assert.match(anonymousMigration, /to anon[\s\S]*submitted_by is null[\s\S]*status='pending'[\s\S]*visibility_status='hidden'/);
+});
+test("anonymous votes are device-limited and stored as hashes", () => {
+  assert.match(anonymousMigration, /digest\(visitor_key, 'sha256'\)/);
+  assert.match(anonymousMigration, /upvotes_visitor_resource_unique/);
+  assert.match(anonymousMigration, /grant execute[\s\S]*to anon, authenticated/);
 });

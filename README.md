@@ -10,11 +10,8 @@ Community-curated resources for Computer Science recruiting. CSRecruit helps stu
 - Search by title, description, category, subcategory, and tags
 - Filter across Coding, Recruiting, Projects, Resume, and Opportunities
 - Sort resources by upvotes, newest, or popularity
-- Sign in with Google, GitHub, or email through Supabase Auth
-- Submit resources to a pending moderation queue
-- Edit or delete your own submissions
-- Upvote each resource once
-- Review approval status and received upvotes from your profile
+- Submit resources without creating an account
+- Upvote each resource once per browser without creating an account
 - Approve, reject, edit, or delete submissions from the protected admin dashboard
 - Prevent duplicate URLs and reject unsafe non-HTTP(S) links
 
@@ -53,11 +50,10 @@ For Google and GitHub login, enable each provider in Supabase Authentication and
 
 ## Permission model
 
-- Visitor: browse, search, filter, and open approved resources
-- Signed-in user: visitor permissions plus submitting, upvoting, and managing their own resources
+- Visitor: browse, search, filter, open, submit, and upvote resources without an account
 - Administrator: review pending submissions and manage all resources
 
-New submissions use `pending` status. Only approved resources appear publicly. Database policies prevent normal users from changing resource status, ownership, or account roles.
+New submissions use `pending` status. Only approved resources appear publicly. Administrator authentication remains available for moderation but is not shown in the public interface.
 
 ## Commands
 
