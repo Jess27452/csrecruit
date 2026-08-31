@@ -1,17 +1,3 @@
-alter table public.upvotes alter column user_id drop not null;
-alter table public.upvotes add column if not exists visitor_key_hash text;
-alter table public.upvotes add constraint upvotes_identity_check
-  check ((user_id is not null and visitor_key_hash is null) or (user_id is null and visitor_key_hash is not null)) not valid;
-alter table public.upvotes validate constraint upvotes_identity_check;
-create unique index if not exists upvotes_visitor_resource_unique
-  on public.upvotes(visitor_key_hash, resource_id)
-  where visitor_key_hash is not null;
-
-drop policy if exists "visitors submit pending resources" on public.resources;
-create policy "visitors submit pending resources" on public.resources
-  for insert to anon
-  with check (submitted_by is null and status='pending' and visibility_status='hidden');
-
 create or replace function public.toggle_anonymous_upvote(target_resource_id uuid, visitor_key text)
 returns boolean
 language plpgsql
@@ -38,6 +24,3 @@ end $$;
 
 revoke all on function public.toggle_anonymous_upvote(uuid,text) from public;
 grant execute on function public.toggle_anonymous_upvote(uuid,text) to anon, authenticated;
-
-revoke select on public.upvotes from anon, authenticated;
-grant select(id, resource_id, created_at) on public.upvotes to anon, authenticated;
